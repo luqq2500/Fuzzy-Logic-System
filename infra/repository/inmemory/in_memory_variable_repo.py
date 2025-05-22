@@ -5,7 +5,6 @@ class InMemoryVariableRepository(VariableRepositoryInterface):
         self.memory = {}
 
     def add(self, variable):
-        print(f'{variable.name} has successfully added!')
         self.memory[variable.name] = variable
 
     def update(self, variable):

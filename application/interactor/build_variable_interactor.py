@@ -1,6 +1,7 @@
 from models.membership import Membership
 from models.membership_function import MembershipFunction
 from models.variable import Variable
+from application.dto.response import CreateVariableResponse
 
 class BuildVariableInteractor:
     def __init__(self, director, repo):
@@ -8,10 +9,12 @@ class BuildVariableInteractor:
         self.repo = repo
 
     def execute(self, request):
-        variable_object = Variable(request.name, request.variable_type, request.variable_universe)
-        fuzzy_variable = self.director.createVariable(variable_object)
+        variable_base = Variable(request.name, request.variable_type, request.variable_universe)
+        variable = self.director.buildVariable(variable_base)
         mf = MembershipFunction(request.mf)
         for ordinal, universe in zip(request.ordinals, request.membership_universes):
             membership = Membership(ordinal, universe)
-            self.director.addMembership(fuzzy_variable, mf, membership)
-        self.repo.add(fuzzy_variable)
+            variable = self.director.addMembership(variable, mf, membership)
+            variable.memberships[ordinal] = variable.fuzzy_variable[ordinal]
+        self.repo.add(variable)
+        return CreateVariableResponse(variable)

@@ -2,10 +2,9 @@ class VariableBuilderDirector:
     def __init__(self, builder):
         self.builder = builder
 
-    def createVariable(self, variable):
+    def buildVariable(self, variable):
         return (self.builder.
-                buildVariable(variable).
-                getFuzzyVariable())
+                buildVariable(variable))
 
     def addMembership(self, variable, mf, membership):
         return (self.builder.

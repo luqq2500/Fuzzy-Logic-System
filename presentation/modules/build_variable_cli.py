@@ -2,7 +2,8 @@ def build_variable_cli(adapter):
     name, variable_type, variable_universe = get_create_variable_input()
     mf = get_mf_input()
     ordinals, universes = get_ordinal_universe_input()
-    adapter.run(name, variable_type, variable_universe, mf, ordinals, universes)
+    response = adapter.execute(name, variable_type, variable_universe, mf, ordinals, universes)
+    return response
 
 def get_create_variable_input():
     name = input("Enter variable name: ").lower()
