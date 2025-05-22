@@ -11,10 +11,10 @@ class SkFuzzyEngine(FuzzyEngineInterface):
         else:
             raise ValueError('Unknown variable type')
 
-    def addMembership(self, variable, mf, membership):
-        if mf.function == 'trimf':
-            return fuzzy.trimf(variable.fuzzy_variable.universe, membership.universe)
-        elif mf.function == 'trapmf':
-            return fuzzy.trapmf(variable.fuzzy_variable.universe, membership.universe)
+    def addMembership(self, variable, mf, universe):
+        if mf == 'trimf':
+            return fuzzy.trimf(variable.fuzzy_variable.universe, universe)
+        elif mf == 'trapmf':
+            return fuzzy.trapmf(variable.fuzzy_variable.universe, universe)
         else:
             raise ValueError('Unknown membership function')

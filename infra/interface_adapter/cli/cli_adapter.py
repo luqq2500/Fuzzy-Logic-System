@@ -4,7 +4,7 @@ from infra.interface_adapter.interface_adapter_interface import InterfaceAdapter
 class BuildVariableCLIAdapter(InterfaceAdapterInterface):
     def __init__(self, interactor):
         self.interactor = interactor
-    def execute(self, name, variable_type, variable_universe, mf, ordinals, membership_universes):
-        request = BuildVariableRequest(name=name, variable_type=variable_type, variable_universe=variable_universe, mf=mf, ordinals=ordinals, membership_universes=membership_universes)
+    def execute(self, name, variable_type, variable_universe, mf, membership_ordinals, membership_universes):
+        request = BuildVariableRequest(name=name, variable_type=variable_type, variable_universe=variable_universe, mf=mf, membership_ordinals=membership_ordinals, membership_universes=membership_universes)
         response = self.interactor.execute(request)
         return response
