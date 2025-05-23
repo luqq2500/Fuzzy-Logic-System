@@ -9,14 +9,14 @@ def get_create_variable_input():
     name = input("Enter variable name: ").lower()
     variable_type = input("Enter your variable type: ").lower()
     universe_string = input("Enter your universe (start, end, step): ")
-    parsed_universe = parse_variable_universe_input(universe_string)
-    if isCreateVariableInputValid(name, variable_type, parsed_universe):
-        return name, variable_type, parsed_universe
-    else:
-        raise ValueError(f"{parsed_universe} universe is invalid. Please try again. ")
-
-def isCreateVariableInputValid(name, variable_type, variable_universe):
-    return isNameValid(name), isVariableUniverseValid(variable_type), isVariableUniverseValid(variable_universe)
+    universe = parse_variable_universe_input(universe_string)
+    if not isNameValid(name):
+        raise ValueError(f"Name: {name} is invalid. Please try again. ")
+    if not isVariableTypeValid(variable_type):
+        raise ValueError(f"Variable type: {variable_type} is invalid. Please try again.")
+    if not isVariableUniverseValid(universe):
+        raise ValueError(f"Variable universe: {universe} is invalid. Please try again.")
+    return name, variable_type, universe
 
 def parse_variable_universe_input(universe):
     try:
@@ -35,18 +35,20 @@ def isVariableTypeValid(variable_type):
         return False
     return True
 
-def isVariableUniverseValid(parsed_universe):
-    start = parsed_universe[0]
-    end = parsed_universe[1]
-    step = parsed_universe[2]
+def isVariableUniverseValid(variable_universe):
+    start = variable_universe[0]
+    end = variable_universe[1]
+    step = variable_universe[2]
     if start<end or step>(end-start):
-        return False
+        raise ValueError(f"Variable universe: {variable_universe} must be incremental.")
+    if len(variable_universe)!=3:
+        raise ValueError(f"Variable universe: {variable_universe} must be have three digits of start, end, step.")
     return True
 
 def get_mf_input():
     mf = input("Enter membership function type: ")
     if mf not in ['trimf', 'trapmf']:
-        raise ValueError("Invalid membership function")
+        raise ValueError(f"Membership function must be either trimf or trapmf.")
     return mf
 
 def get_ordinal_universe_input():

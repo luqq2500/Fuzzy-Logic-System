@@ -7,3 +7,14 @@ class VariableBuilderDirector:
                 createVariable(variable).
                 addMembership(membership).
                 build())
+
+    def createVariable(self, variable):
+        return (self.builder.
+               createVariable(variable).
+               build())
+
+    def addMembershipExistingVariable(self, variable, membership):
+        return (self.builder.
+                setVariable(variable).
+                addMembership(membership).
+                build())
