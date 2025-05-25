@@ -12,9 +12,11 @@ class BuildVariableInteractor:
         start, end, step = request.variable_universe
         var =  Variable(request.name, request.variable_type, np.arange(start, end, step))
         mem = VariableMembership(request.mf, request.membership_ordinals, request.membership_universes)
-        var.fuzzy_variable = self.engine.buildVariable(var.name, var.type, var.universe)
+        fuzzy_var = self.engine.buildVariable(var.name, var.type, var.universe)
+        var.fuzzy_variable = fuzzy_var
         for ordinal, universe in mem.membership.items():
-            var.fuzzy_variable[ordinal] = self.engine.addMembership(var.fuzzy_variable.universe, mem.mf, universe)
+            mem_set = self.engine.addMembership(var.fuzzy_variable.universe, mem.mf, universe)
+            var.fuzzy_variable[ordinal] = mem_set
             var.memberships[ordinal] = var.fuzzy_variable[ordinal]
         self.repo.add(var)
         return CreateVariableResponse(var)
