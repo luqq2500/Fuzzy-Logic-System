@@ -7,11 +7,11 @@ from infra.repository.inmemory.in_memory_variable_repo import InMemoryVariableRe
 
 def set_cli_dependencies():
     engine = SkFuzzyEngine()
-    variable_builder = VariableBuilder(engine)
-    variable_builder_director = VariableBuilderDirector(variable_builder)
-    variable_repository = InMemoryVariableRepository()
+    # variable_builder = VariableBuilder(engine)
+    # variable_builder_director = VariableBuilderDirector(variable_builder)
+    var_repo = InMemoryVariableRepository()
 
-    build_variable_interactor = BuildVariableInteractor(variable_builder_director, variable_repository)
-    build_variable_cli_adapter = BuildVariableCLIAdapter(build_variable_interactor)
+    int_build_var = BuildVariableInteractor(engine, var_repo)
+    build_variable_cli_adapter = BuildVariableCLIAdapter(int_build_var)
 
-    return build_variable_cli_adapter, variable_repository
+    return build_variable_cli_adapter, var_repo
