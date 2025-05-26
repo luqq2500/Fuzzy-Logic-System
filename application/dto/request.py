@@ -1,8 +1,18 @@
-class BuildVariableRequest:
-    def __init__(self, name: str, variable_type: str, variable_universe: list[float], mf: str, membership_ordinals: list[str], membership_universes: list[list[float]]):
+class CreateVariableRequest:
+    def __init__(self, name:str, var_type: str, universe: list[float]):
         self.name = name
-        self.variable_type = variable_type
-        self.variable_universe = variable_universe
+        self.var_type = var_type
+        self.universe = universe
+
+class AddMembershipRequest:
+    def __init__(self, var: object, mf: str, ordinals: list[str], universes: list[list[float]]):
+        self.var = var # variable name will be pass to interactor, and get it via repo.
         self.mf = mf
-        self.membership_ordinals = membership_ordinals
-        self.membership_universes = membership_universes
+        self.ordinals = ordinals
+        self.universes = universes
+
+class BuildRuleRequest:
+    def __init__(self, var_seq: list[object], log_seq: list, con:object):
+        self.var_seq = var_seq
+        self.log_seq = log_seq
+        self.con = con

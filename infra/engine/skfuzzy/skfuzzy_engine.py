@@ -4,7 +4,7 @@ from infra.engine.fuzzy_engine_interface import FuzzyEngineInterface
 
 class SkFuzzyEngine(FuzzyEngineInterface):
 
-    def buildVariable(self, name, var_type, universe):
+    def createVariable(self, name, var_type, universe):
         if var_type == 'antecedent':
             return controller.Antecedent(universe, name)
         elif var_type == 'consequent':
@@ -19,3 +19,6 @@ class SkFuzzyEngine(FuzzyEngineInterface):
             return fuzzy.trapmf(fuzzy_var_universe, universe)
         else:
             raise ValueError(f'Invalid function: {mf}')
+
+    def createRule(self, ant, con):
+        return controller.Rule(ant, con)

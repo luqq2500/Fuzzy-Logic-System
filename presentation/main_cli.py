@@ -1,12 +1,8 @@
 from infra.dependency.set_dependencies import set_cli_dependencies
-from presentation.modules.build_variable_cli import build_variable_cli
 
-build_variable_cli_adapter, var_repo = set_cli_dependencies()
+create_var_cli, add_mem_cli = set_cli_dependencies()
 
-response = build_variable_cli(build_variable_cli_adapter)
+var_res = create_var_cli.execute()
+var_mem_res = add_mem_cli.execute(var_res.base)
 
-print(response.name,
-      response.type,
-      response.universe,
-      response.fuzzy_variable,
-      response.memberships)
+print(var_mem_res.name, var_mem_res.memberships)

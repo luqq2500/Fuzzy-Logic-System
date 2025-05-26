@@ -4,4 +4,4 @@ class Variable:
         self.type = variable_type
         self.universe = universe
         self.fuzzy_variable = None
-        self.memberships = {}
+        self.memberships = {} # {ordinal:var.fuzzy_var[ordinal]}
