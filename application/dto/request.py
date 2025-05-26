@@ -5,8 +5,8 @@ class CreateVariableRequest:
         self.universe = universe
 
 class AddMembershipRequest:
-    def __init__(self, var: object, mf: str, ordinals: list[str], universes: list[list[float]]):
-        self.var = var # variable name will be pass to interactor, and get it via repo.
+    def __init__(self, var_name: str, mf: str, ordinals: list[str], universes: list[list[float]]):
+        self.var_name = var_name # variable name will be pass to interactor, and get it via repo.
         self.mf = mf
         self.ordinals = ordinals
         self.universes = universes

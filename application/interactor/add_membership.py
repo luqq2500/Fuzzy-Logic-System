@@ -6,7 +6,7 @@ class AddMembership:
         self.engine = engine
         self.repo = repo
     def execute(self, req):
-        var = req.var
+        var = self.repo.get(req.var_name)
         mem = Membership(req.mf, req.ordinals, req.universes)
         fuzzy_var_universe = var.fuzzy_variable.universe
         for ordinal, universe in mem.membership.items():

@@ -2,10 +2,10 @@ class AddMembershipCLI:
     def __init__(self, adapter):
         self.adapter = adapter
 
-    def execute(self, var_object):
+    def execute(self, var_name):
         mf = self.get_mf_input()
         ordinals, universes = self.get_ordinal_universe_input()
-        res = self.adapter.execute(var_object, mf, ordinals, universes)
+        res = self.adapter.execute(var_name, mf, ordinals, universes)
         return res
 
     @staticmethod
