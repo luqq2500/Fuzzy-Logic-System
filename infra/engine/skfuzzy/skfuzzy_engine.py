@@ -22,3 +22,6 @@ class SkFuzzyEngine(FuzzyEngineInterface):
 
     def createRule(self, ant, con):
         return controller.Rule(ant, con)
+
+    def getRuleTermAndLabel(self, rule):
+        return {term.term.label:term.label for term in rule.antecedent.term_set}

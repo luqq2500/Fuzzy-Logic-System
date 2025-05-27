@@ -11,8 +11,8 @@ class AddMembershipRequest:
         self.ordinals = ordinals
         self.universes = universes
 
-class BuildRuleRequest:
-    def __init__(self, var_seq: list[object], log_seq: list, con:object):
-        self.var_seq = var_seq
-        self.log_seq = log_seq
-        self.con = con
+class CreateRuleRequest:
+    def __init__(self, name: str, var_logic_seq: list, con_var:float):
+        self.name = name
+        self.var_logic_seq = var_logic_seq # antecedent sequence of variable[ordinal]: float
+        self.con_var = con_var
