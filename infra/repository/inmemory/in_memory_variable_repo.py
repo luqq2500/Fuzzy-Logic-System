@@ -1,6 +1,6 @@
-from infra.repository.variable_repo_interface import VariableRepositoryInterface
+from infra.repository.variable_repo_interface import IRepository
 
-class InMemoryVariableRepository(VariableRepositoryInterface):
+class InMemoryVariableRepository(IRepository):
     def __init__(self):
         self.memory = {}
 

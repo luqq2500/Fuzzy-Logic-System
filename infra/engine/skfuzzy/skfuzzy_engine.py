@@ -1,8 +1,8 @@
 import skfuzzy.control as controller
 import skfuzzy as fuzzy
-from infra.engine.fuzzy_engine_interface import FuzzyEngineInterface
+from infra.engine.fuzzy_engine_interface import IFuzzyEngine
 
-class SkFuzzyEngine(FuzzyEngineInterface):
+class SkFuzzyEngine(IFuzzyEngine):
 
     def createVariable(self, name, var_type, universe):
         if var_type == 'antecedent':

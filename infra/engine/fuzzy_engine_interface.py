@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class FuzzyEngineInterface(ABC):
+class IFuzzyEngine(ABC):
     # @abstractmethod
     # def buildVariable(self, variable):...
     # @abstractmethod
