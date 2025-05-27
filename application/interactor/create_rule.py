@@ -19,15 +19,18 @@ class CreateRule:
     def execute(self, req):
         assert len(req.var_logic_seq) % 2 == 1
         rule_base = Rule(req.name)
-
-        antecedent = req.var_logic_seq[-1]
-        for i in range(len(req.var_logic_seq)-2,0,-2):
-            logic = req.var_logic_seq[i]
-            var_set = req.var_logic_seq[i-1]
-            antecedent = logic(var_set, antecedent)
-
+        antecedent = self.sortVarLogicSequenceReturnAntecedent(req.var_logic_seq)
         fuzzy_rule = self.engine.createRule(antecedent, req.con_var)
         rule_base.fuzzy_rule = fuzzy_rule
         rule_term_label = self.engine.getRuleTermAndLabel(rule_base.fuzzy_rule)
         rule_base.var_term_label = rule_term_label
+
+    @staticmethod
+    def sortVarLogicSequenceReturnAntecedent(var_logic_seq):
+        antecedent = var_logic_seq[-1]
+        for i in range(len(var_logic_seq)-2,0,-2):
+            logic = var_logic_seq[i]
+            var_set = var_logic_seq[i-1]
+            antecedent = logic(var_set, antecedent)
+        return antecedent
 
