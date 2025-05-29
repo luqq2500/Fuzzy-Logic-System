@@ -1,8 +1,4 @@
-from infra.engine.fuzzy_engine_interface import IFuzzyEnginePort
-from infra.repository.repo_port import IVariableRepositoryPort
 from domain.rule import Rule
-import operator
-from domain.variable import Variable
 
 
 # This is 'create rule' business application code.
