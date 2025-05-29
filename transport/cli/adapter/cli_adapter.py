@@ -1,7 +1,7 @@
 from application.dto.request import CreateVariableRequest, AddMembershipRequest, CreateRuleRequest
-from infra.transport.transport_adapter_interface import ICreateVariable, IAddMembership, ICreateRule
+from transport.port import ICreateVariablePort, IAddMembershipPort, ICreateRulePort
 
-class CreateVariableCLIAdapter(ICreateVariable):
+class CreateVariableCLIAdapter(ICreateVariablePort):
     def __init__(self, interactor):
         self.interactor = interactor
     def execute(self, name, var_type, universe):
@@ -9,7 +9,7 @@ class CreateVariableCLIAdapter(ICreateVariable):
         res = self.interactor.execute(req)
         return res
 
-class AddMembershipCLIAdapter(IAddMembership):
+class AddMembershipCLIAdapter(IAddMembershipPort):
     def __init__(self,interactor):
         self.interactor = interactor
     def execute(self, var_name, mf, ordinals, universes):
@@ -17,10 +17,10 @@ class AddMembershipCLIAdapter(IAddMembership):
         res = self.interactor.execute(req)
         return res
 
-class CreateRuleCLIAdapter(ICreateRule):
+class CreateRuleCLIAdapter(ICreateRulePort):
     def __init__(self, interactor):
         self.interactor = interactor
-    def execute(self, var_set_seq, logic_seq, con_var):
-        req = CreateRuleRequest(var_set_seq=var_set_seq, logic_seq=logic_seq, con_var=con_var)
+    def execute(self, name, var_logic_seq, con_var):
+        req = CreateRuleRequest(name=name, var_logic_seq=var_logic_seq, con_var=con_var)
         res = self.interactor.execute(req)
         return res

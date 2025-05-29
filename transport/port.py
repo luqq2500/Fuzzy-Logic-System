@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 
-class ICreateVariable(ABC):
+class ICreateVariablePort(ABC):
     @abstractmethod
-    def execute(self, name, var_type, universe):...
+    def execute(self, name: str, var_type: str, universe: list[float]):...
 
-class IAddMembership(ABC):
+class IAddMembershipPort(ABC):
     @abstractmethod
     def execute(self, name: str, mf: str, ordinals: list[str], universes: list[list[float]]):...
 
-class ICreateRule(ABC):
+class ICreateRulePort(ABC):
     @abstractmethod
     def execute(self, name: str, var_logic_seq: list, con_var: float):...

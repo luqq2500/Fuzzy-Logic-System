@@ -1,10 +1,10 @@
 from application.interactor.add_membership import AddMembership
 from application.interactor.create_variable import CreateVariable
 from infra.engine.skfuzzy.skfuzzy_engine import SkFuzzyEngine
-from infra.transport.cli.cli_adapter import CreateVariableCLIAdapter, AddMembershipCLIAdapter
+from transport.cli.adapter.cli_adapter import CreateVariableCLIAdapter, AddMembershipCLIAdapter
 from infra.repository.inmemory.in_memory_variable_repo import InMemoryVariableRepository
-from presentation.modules.add_membership_cli import AddMembershipCLI
-from presentation.modules.create_variable_cli import CreateVariableCLI
+from transport.cli.modules.add_membership_cli import AddMembershipCLI
+from transport.cli.modules.create_variable_cli import CreateVariableCLI
 
 
 def set_cli_dependencies():

@@ -1,10 +1,6 @@
 from abc import ABC, abstractmethod
 
-class IFuzzyEngine(ABC):
-    # @abstractmethod
-    # def buildVariable(self, variable):...
-    # @abstractmethod
-    # def addMembership(self, variable, mf, membership):...
+class IFuzzyEnginePort(ABC):
     @abstractmethod
     def createVariable(self, name, var_type, universe):...
     @abstractmethod

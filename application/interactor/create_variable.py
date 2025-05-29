@@ -1,5 +1,15 @@
 from application.dto.response import CreateVariableResponse
-from models.variable import Variable
+from domain.variable import Variable
+
+
+# This is 'create variable' business application code.
+# Information required: name, variable type, and universe.
+# 1. Get user input from dto: name, variable type, universe
+# 2. Create fuzzy variable using engine method: createVariable
+# 3. Add fuzzy variable in variable attribute fuzzy_variable
+# 4. Add variable object in variable repository
+# 5. Return response object of name, variable type, universe, and fuzzy_variable.
+
 
 class CreateVariable:
     def __init__(self, engine, repo):
