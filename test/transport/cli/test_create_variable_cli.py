@@ -7,12 +7,12 @@ class MockAdapter:
     def execute(name, var_type, universe):
         return f"Created: {name} {var_type} {universe}"
 
-class TestCreateVariable:
+class TestCreateVariableCLI:
     def setup_method(self):
         self.cli = CreateVariableCLI(MockAdapter())
 
     def test_nameIsEmpty(self):
-        name = None
+        name = ''
         assert self.cli.isNameValid(name) is False
 
     def test_nameIsOnlyWhiteSpace(self):

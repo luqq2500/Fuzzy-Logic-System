@@ -4,56 +4,89 @@ class AddMembershipCLI:
 
     def execute(self, var_name):
         mf = self.get_mf_input()
-        ordinals, universes = self.get_ordinal_universe_input()
-        res = self.adapter.execute(var_name, mf, ordinals, universes)
-        return res
-
-    @staticmethod
-    def get_mf_input():
-        mf = input("Enter membership function type: ")
-        if mf not in ['trimf', 'trapmf']:
-            raise ValueError(f"Membership function must be either trimf or trapmf.")
-        return mf
-
-    def get_ordinal_universe_input(self):
         level = self.get_membership_level()
         ordinals = []
         universes = []
         for i in range(level):
-            ordinal = input("Enter ordinal: ")
-            universe = input("Enter universe [number, number,..., number]: ")
-            parsed_universe = self.parse_membership_universe_input(universe)
-            if not self.isOrdinalValid(ordinal, ordinals):
-                raise ValueError(f'Duplicate {ordinal} is invalid.')
-            if not self.isMembershipUniverseValid(parsed_universe):
-                raise ValueError(f'Universe {universe} is invalid.')
+            ordinal = self.get_ordinal_input(ordinals)
+            universe = self.get_universe_input(universes, mf)
             ordinals.append(ordinal)
-            universes.append(parsed_universe)
-        return ordinals, universes
+            universes.append(universe)
+        res = self.adapter.execute(var_name, mf, ordinals, universes)
+        return res
 
-    @staticmethod
-    def get_membership_level():
+    def get_membership_level(self):
         level = input("Enter membership level: ")
-        try:
+        if self.isLevelValid(level):
             return int(level)
-        except ValueError:
-            raise ValueError(f'Membership level must be an integer.')
+        else:
+            raise ValueError(f'Membership level is invalid.')
+
+    def get_mf_input(self):
+        mf = input("Enter membership function type: ")
+        if self.isMfValid(mf):
+            return mf
+        else:
+            raise ValueError(f'Membership function type is invalid.')
+
+    def get_ordinal_input(self, ordinals):
+        ordinal = input("Enter ordinal: ")
+        if self.isOrdinalValid(ordinal, ordinals):
+            return ordinal
+        else:
+            raise ValueError(f'Ordinal is invalid.')
+
+    def get_universe_input(self, universes, mf):
+        string_universe = input("Enter universe [number, number,..., number]: ")
+        if self.isUniverseValid(string_universe, universes, mf):
+            universe = self.parse_universe_input(string_universe)
+            return universe
+        else:
+            raise ValueError(f'Universe is invalid.')
 
     @staticmethod
-    def parse_membership_universe_input(universe):
-        try:
-            return [float(value.strip()) for value in universe.split(',')]
-        except ValueError:
-            raise ValueError(f'Membership universe: {universe} must separated by commas.')
+    def isMfValid(mf):
+        if mf not in ['trimf','trapmf']:
+            raise ValueError(f'Membership function must be either trimf or trapmf.')
+        return True
+
+    @staticmethod
+    def isLevelValid(level):
+        if level>0:
+            return True
+        else:
+            raise ValueError('Level cannot be negative nor zero.')
 
     @staticmethod
     def isOrdinalValid(ordinal, ordinals):
-        return ordinal not in ordinals
+        if ordinal in ordinals:
+            raise ValueError('Ordinal cannot have duplicates.')
+        if int(ordinal):
+            raise ValueError('Ordinal cannot be integer.')
+        if ordinal == '' or ordinal == ' ':
+            raise ValueError('Ordinal cannot be empty.')
+        return True
 
     @staticmethod
-    def isMembershipUniverseValid(universe):
+    def isUniverseValid(universe_string, universes, mf):
+        if not [float(value.strip()) for value in universe_string.split(',')]:
+            raise ValueError('Universe value must only have digits, and divided by (,).')
+        universe = [float(value.strip()) for value in universe_string.split(',')]
         if not all(universe[i]<=universe[i+1] for i in range(len(universe)-1)):
-            return False
-        if len(universe)<3 or len(universe)>4:
-            return False
+            raise ValueError('Universe must be incremental.')
+        if all(universe[i]==universe[i+1] for i in range(len(universe)-1)):
+            raise ValueError('Universe must have width.')
+        if any(value<0 for value in universe):
+            raise ValueError('Universe value cannot have negative value.')
+        if universe in universes:
+            raise ValueError('Universe value cannot have duplicates.')
+        mf_len = {'trimf':3,'trapmf':4}
+        if not len(universe) == mf_len[mf]:
+            raise ValueError('Universe value does not have the expected length. Trimf = 3, Trapmf = 4.')
         return True
+
+    @staticmethod
+    def parse_universe_input(universe:str):
+        return [float(value.strip()) for value in universe.split(',')]
+
+
