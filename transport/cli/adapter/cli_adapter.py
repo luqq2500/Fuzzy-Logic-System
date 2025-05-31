@@ -1,5 +1,5 @@
 from application.dto.request import CreateVariableRequest, AddMembershipRequest, CreateRuleRequest
-from transport.port import ICreateVariablePort, IAddMembershipPort, ICreateRulePort, IDisplayVariableOrdinalPort
+from transport.port import ICreateVariablePort, IAddMembershipPort, ICreateRulePort, IDisplayExistingAntecedentPort
 
 
 class CreateVariableCLIAdapter(ICreateVariablePort):
@@ -26,7 +26,7 @@ class CreateRuleCLIAdapter(ICreateRulePort):
         res = self.interactor.execute(req)
         return res
 
-class DisplayVariableOrdinalCLIAdapter(IDisplayVariableOrdinalPort):
+class DisplayExistingAntecedentCLIAdapter(IDisplayExistingAntecedentPort):
     def __init__(self, interactor):
         self.interactor = interactor
     def execute(self):
