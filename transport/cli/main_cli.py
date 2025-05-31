@@ -1,5 +1,4 @@
 from infra.dependency.set_dependencies import set_cli_dependencies
-from transport.cli.strategy.cli_strategy import CLIStrategy
 
 strategy = set_cli_dependencies()
 

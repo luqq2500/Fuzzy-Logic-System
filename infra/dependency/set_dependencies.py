@@ -1,6 +1,6 @@
 from application.interactor.add_membership import AddMembership
 from application.interactor.create_variable import CreateVariable
-from application.interactor.process_variable_ordinal_for_display import ProcessVariableOrdinalForDisplay
+from application.interactor.process_variable_ordinal_for_display import ProcessAntecedentVariablesForDisplay
 from infra.engine.skfuzzy.skfuzzy_engine import SkFuzzyEngine
 from transport.cli.adapter.cli_adapter import CreateVariableCLIAdapter, AddMembershipCLIAdapter, DisplayVariableOrdinalCLIAdapter
 from infra.repository.inmemory.in_memory_variable_repo import InMemoryVariableRepository
@@ -22,7 +22,7 @@ def set_cli_dependencies():
     add_mem_adapter = AddMembershipCLIAdapter(add_mem_interactor)
     add_mem_cli = AddMembershipCLI(add_mem_adapter)
 
-    display_var_ordinal_interactor = ProcessVariableOrdinalForDisplay(var_repo)
+    display_var_ordinal_interactor = ProcessAntecedentVariablesForDisplay(var_repo)
     display_var_ordinal_adapter = DisplayVariableOrdinalCLIAdapter(display_var_ordinal_interactor)
     display_variable_ordinal_cli = DisplayVariableOrdinalCLI(display_var_ordinal_adapter)
 

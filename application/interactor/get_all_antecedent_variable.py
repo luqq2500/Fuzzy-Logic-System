@@ -6,7 +6,6 @@ from application.dto.response import GetAllExistingVariableResponse
 # 1. Invoke repository method: getAll()
 # 2. Pass to response dto.
 
-
 class GetAllExistingVariable:
     def __init__(self, repo):
         self.repo = repo

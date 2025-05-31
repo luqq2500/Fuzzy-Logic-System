@@ -8,6 +8,8 @@ class CLIStrategy:
         self.create_variable.execute()
 
     def createVariableAndAddMembership(self):
-        res = self.create_variable.execute()
-        self.add_membership.execute(res.name)
+        i = int(input("Number of variables to create: "))
+        for _ in range(i):
+            res = self.create_variable.execute()
+            self.add_membership.execute(res.name)
         self.display_variable_ordinal.execute()
