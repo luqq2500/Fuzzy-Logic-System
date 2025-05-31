@@ -1,8 +1,12 @@
 from infra.dependency.set_dependencies import set_cli_dependencies
+from transport.cli.strategy.cli_strategy import CLIStrategy
 
-create_var_cli, add_mem_cli = set_cli_dependencies()
+strategy = set_cli_dependencies()
 
-var_res = create_var_cli.execute()
-var_mem_res = add_mem_cli.execute(var_res.name)
-
-print(var_mem_res.name, var_mem_res.memberships)
+print('Welcome to Fuzzy Logic System!')
+print('User mode: \n1. Create variable alone \n2. Create variable and add membership')
+mode = input(f'Select mode: ')
+if int(mode) == 1:
+    strategy.createVariableAlone()
+elif int(mode) == 2:
+    strategy.createVariableAndAddMembership()

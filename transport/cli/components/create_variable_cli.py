@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from transport.cli.validation.create_variable_cli_validation import isNameValid, isVariableTypeValid,isVariableUniverseValid
+from transport.cli.validation.validate_create_variable_cli import isNameValid, isVariableTypeValid,isVariableUniverseValid
 
 class CreateVariableCLI:
     def __init__(self, adapter):
@@ -10,6 +10,7 @@ class CreateVariableCLI:
         var_type = self.get_variable_type()
         universe = self.get_variable_universe()
         res = self.adapter.execute(name, var_type, universe)
+        print(f'Variable created: {res.name},{res.type},{res.universe},{res.fuzzy_var}')
         return res
 
     @abstractmethod

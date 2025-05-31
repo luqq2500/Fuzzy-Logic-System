@@ -17,8 +17,10 @@ def isVariableUniverseValid(variable_universe):
     if not isinstance(variable_universe, list):
         raise ValueError(f"Variable universe: {variable_universe} must be a list.")
     for value in variable_universe:
-        if not isinstance(value, int) or not isinstance(value, float):
+        if not isinstance(value, (int, float)):
             raise ValueError(f"Variable universe: {variable_universe} must be a list of numbers.")
+    if len(variable_universe) != 3:
+        raise ValueError(f"Variable universe: {variable_universe} must be a list of 3 numbers.")
     start = variable_universe[0]
     end = variable_universe[1]
     step = variable_universe[2]

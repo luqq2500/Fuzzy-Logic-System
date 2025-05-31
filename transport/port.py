@@ -11,3 +11,7 @@ class IAddMembershipPort(ABC):
 class ICreateRulePort(ABC):
     @abstractmethod
     def execute(self, name: str, var_logic_seq: list, con_var: float):...
+
+class IDisplayVariableOrdinalPort(ABC):
+    @abstractmethod
+    def execute(self):...

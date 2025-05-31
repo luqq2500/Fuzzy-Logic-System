@@ -16,5 +16,13 @@ class CreateRuleResponse:
         self.ant = rule.ant
         self.con = rule.con
 
+class GetAllExistingVariableResponse:
+    def __init__(self, variables):
+        self.variables = variables
+
+class ProcessVariableOrdinalsForDisplayResponse:
+    def __init__(self, variable_ordinal_for_display):
+        self.variableOrdinalForDisplay = variable_ordinal_for_display
+
 
 

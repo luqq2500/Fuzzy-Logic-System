@@ -4,15 +4,15 @@ def isMfValid(mf):
     return True
 
 def isLevelValid(level):
-    if level>0:
+    if int(level)>0:
         return True
     else:
-        raise ValueError('Level cannot be negative nor zero.')
+        raise ValueError('Level must be integer, cannot be negative nor zero.')
 
 def isOrdinalValid(ordinal, ordinals):
     if ordinal in ordinals:
         raise ValueError('Ordinal cannot have duplicates.')
-    if int(ordinal):
+    if isinstance(ordinal, int):
         raise ValueError('Ordinal cannot be integer.')
     if ordinal == '' or ordinal == ' ':
         raise ValueError('Ordinal cannot be empty.')

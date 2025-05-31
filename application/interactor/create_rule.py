@@ -1,3 +1,4 @@
+from application.dto.response import CreateRuleResponse
 from domain.rule import Rule
 
 
@@ -27,3 +28,5 @@ class CreateRule:
         rule_base.fuzzy_rule = fuzzy_rule
         rule_term_label = {term.term.label:term.label for term in rule_base.fuzzy_rule.antecedent.term_set}
         rule_base.var_term_label = rule_term_label
+        self.repo.save(rule_base)
+        return CreateRuleResponse(rule_base)

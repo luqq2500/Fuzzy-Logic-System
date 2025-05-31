@@ -1,5 +1,5 @@
 import pytest
-from transport.cli.validation.create_variable_cli_validation import isNameValid, isVariableTypeValid, isVariableUniverseValid
+from transport.cli.validation.validate_create_variable_cli import isNameValid, isVariableTypeValid, isVariableUniverseValid
 
 class TestCreateVariableCLIValidator:
     def test_nameIsEmpty(self):

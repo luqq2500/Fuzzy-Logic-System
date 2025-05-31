@@ -16,6 +16,7 @@ class AddMembershipCLI:
             ordinals.append(ordinal)
             universes.append(universe)
         res = self.adapter.execute(var_name, mf, ordinals, universes)
+        print(f'Membership added: {res.name},{res.memberships}')
         return res
 
     @staticmethod
