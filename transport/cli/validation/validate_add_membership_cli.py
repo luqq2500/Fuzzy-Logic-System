@@ -1,8 +1,3 @@
-def isMfValid(mf):
-    if mf not in ['trimf','trapmf']:
-        raise ValueError(f'Membership function must be either trimf or trapmf.')
-    return True
-
 def isLevelValid(level):
     if int(level)>0:
         return True

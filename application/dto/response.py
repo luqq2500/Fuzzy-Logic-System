@@ -1,24 +1,37 @@
+from dataclasses import dataclass
+from typing import Union
+
+from domain.variable import Variable
+
+
+@dataclass
 class CreateVariableResponse:
-    def __init__(self, var):
-        self.name = var.name
-        self.type = var.type
-        self.universe = var.universe
-        self.fuzzy_var = var.fuzzy_variable
+    name:str
+    type:str
+    universe:list[float]
+    mf:str
+    fuzzy_var:object
 
+@dataclass
 class AddMembershipResponse:
-    def __init__(self, var):
-        self.name = var.name
-        self.memberships = var.memberships
+    name:str
+    memberships:dict[str:object]
 
+@dataclass
 class CreateRuleResponse:
-    def __init__(self, rule):
-        self.name = rule.name
-        self.ant = rule.ant
-        self.con = rule.con
+    name:str
+    ant:object #rule.Antecedent
+    con:object #rule.Consequent
 
-class FormatExistingAntecedentForDisplayResponse:
-    def __init__(self, formatted_antecedent):
-        self.formatted_antecedent = formatted_antecedent
+@dataclass
+class FormatExistingAntecedentResponse:
+    formatted_antecedent:dict[str:list[str]]
 
-
+@dataclass
+class GetVariableInfoByNameResponse:
+    name:str
+    type:str
+    universe:list[float]
+    mf:str
+    fuzzy_var:object
 

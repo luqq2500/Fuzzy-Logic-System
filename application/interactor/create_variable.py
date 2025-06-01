@@ -16,9 +16,18 @@ class CreateVariable:
         self.engine = engine
         self.repo = repo
 
-    def execute(self, req):
-        var = Variable(req.name, req.var_type, req.universe)
-        fuzzy_var = self.engine.createVariable(var.name, var.type, var.universe)
-        var.fuzzy_variable = fuzzy_var
-        self.repo.add(var)
-        return CreateVariableResponse(var)
+    def execute(self, req)->CreateVariableResponse:
+        variable = Variable(req.name, req.var_type, req.universe, req.mf)
+        name = variable.getName()
+        var_type = variable.getType()
+        universe = variable.getUniverse()
+        fuzzy_var = self.engine.createVariable(name, var_type, universe)
+        variable.setFuzzyVariable(fuzzy_var)
+        self.repo.add(variable)
+        return CreateVariableResponse(
+            name=variable.getName(),
+            type=variable.getType(),
+            universe=variable.getUniverse(),
+            mf=variable.getMf(),
+            fuzzy_var=variable.getFuzzyVariable()
+        )

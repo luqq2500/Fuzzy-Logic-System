@@ -1,5 +1,7 @@
+from transport.cli.adapter.cli_adapter import FormatExistingAntecedentCLIAdapter
+
 class DisplayExistingAntecedentCLI:
-    def __init__(self, adapter):
+    def __init__(self, adapter:FormatExistingAntecedentCLIAdapter):
         self.adapter = adapter
 
     def execute(self):

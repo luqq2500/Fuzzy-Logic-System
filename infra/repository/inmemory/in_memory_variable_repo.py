@@ -16,6 +16,8 @@ class InMemoryVariableRepository(IVariableRepositoryPort):
         del self.memory[name]
 
     def get(self, name):
+        if name not in self.memory:
+            return None
         return self.memory[name]
 
     def isExist(self, name) -> bool:

@@ -29,3 +29,8 @@ def isVariableUniverseValid(variable_universe):
     if len(variable_universe)!=3:
         raise ValueError(f"Variable universe: {variable_universe} must be have three digits of start, end, step.")
     return True
+
+def isMfValid(mf):
+    if mf not in ['trimf','trapmf']:
+        raise ValueError(f'Membership function must be either trimf or trapmf.')
+    return True

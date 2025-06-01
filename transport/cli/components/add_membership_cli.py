@@ -1,18 +1,19 @@
 from abc import abstractmethod
-from transport.cli.validation.validate_add_membership_cli import isLevelValid, isMfValid, isOrdinalValid, isUniverseValid
+
+from transport.cli.adapter.cli_adapter import AddMembershipCLIAdapter
+from transport.cli.validation.validate_add_membership_cli import isLevelValid, isOrdinalValid, isUniverseValid
 
 class AddMembershipCLI:
-    def __init__(self, adapter):
+    def __init__(self, adapter:AddMembershipCLIAdapter):
         self.adapter = adapter
 
-    def execute(self, var_name):
-        mf = self.get_mf_input()
-        level = self.get_membership_level()
+    def execute(self, var_name:str, mf:str):
+        level = self.getMembershipLevel()
         ordinals = []
         universes = []
         for i in range(level):
-            ordinal = self.get_ordinal_input(ordinals)
-            universe = self.get_universe_input(universes, mf)
+            ordinal = self.getOrdinals(ordinals)
+            universe = self.getUniverse(universes, mf)
             ordinals.append(ordinal)
             universes.append(universe)
         res = self.adapter.execute(var_name, mf, ordinals, universes)
@@ -20,7 +21,7 @@ class AddMembershipCLI:
         return res
 
     @staticmethod
-    def get_membership_level():
+    def getMembershipLevel():
         level = input("Enter membership level: ")
         if isLevelValid(level):
             return int(level)
@@ -28,31 +29,23 @@ class AddMembershipCLI:
             raise ValueError(f'Membership level is invalid.')
 
     @staticmethod
-    def get_mf_input():
-        mf = input("Enter membership function type: ")
-        if isMfValid(mf):
-            return mf
-        else:
-            raise ValueError(f'Membership function type is invalid.')
-
-    @staticmethod
-    def get_ordinal_input(ordinals):
+    def getOrdinals(ordinals):
         ordinal = input("Enter ordinal: ")
         if isOrdinalValid(ordinal, ordinals):
             return ordinal
         else:
             raise ValueError(f'Ordinal is invalid.')
 
-    def get_universe_input(self,universes, mf):
+    def getUniverse(self, universes, mf):
         string_universe = input("Enter universe [number, number,..., number]: ")
         if isUniverseValid(string_universe, universes, mf):
-            universe = self.parse_universe_input(string_universe)
+            universe = self.parseUniverseStringReturnListFloat(string_universe)
             return universe
         else:
             raise ValueError(f'Universe is invalid.')
 
     @abstractmethod
-    def parse_universe_input(self, universe:str):
+    def parseUniverseStringReturnListFloat(self, universe:str):
         return [float(value.strip()) for value in universe.split(',')]
 
 

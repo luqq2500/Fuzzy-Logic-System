@@ -26,7 +26,7 @@ class CreateRule:
             antecedent = logic(var_set, antecedent)
         fuzzy_rule = self.engine.createRule(antecedent, req.con_var)
         rule_base.fuzzy_rule = fuzzy_rule
-        rule_term_label = {term.term.label:term.label for term in rule_base.fuzzy_rule.antecedent.term_set}
+        rule_term_label = {term.term.label:term.label for term in rule_base.fuzzy_rule.Antecedent.term_set}
         rule_base.var_term_label = rule_term_label
         self.repo.save(rule_base)
         return CreateRuleResponse(rule_base)
