@@ -10,7 +10,7 @@ from transport.cli.components.add_membership_cli import AddMembershipCLI
 from transport.cli.components.create_variable_cli import CreateVariableCLI
 from transport.cli.components.display_variable_ordinal_cli import DisplayExistingAntecedentCLI
 from transport.cli.components.get_existing_variable_name_cli import GetExistingVariableNameCLI
-from transport.cli.components.get_variable_cli import GetVariableInfoCLI
+from transport.cli.components.get_variable_info_cli import GetVariableInfoCLI
 from transport.cli.strategy.user_strategy import IUserStrategyCLI,UserCreateVariableCLI, UserPutVariableNameAddMembershipCLI, UserCreateVariableAddMembershipCLI
 from transport.cli.strategy.get_variable_info_strategy import GetVariableInfoByNameStrategy
 
