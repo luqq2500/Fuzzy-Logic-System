@@ -1,4 +1,4 @@
-from transport.cli.strategy.cli_strategy import IUserStrategyCLI
+from transport.cli.strategy.user_strategy import IUserStrategyCLI
 
 class CLI:
     def __init__(self, strategies:dict[str,IUserStrategyCLI]):
@@ -11,11 +11,11 @@ class CLI:
             if not self.selectStrategy():
                 print('See you again. Exiting system.')
                 exit()
-            if self.currentStrategy.execute():
-                print(f"Session: {self.currentStrategy.getDescription()} ended with success.")
-            elif not self.currentStrategy.execute():
-                print(f"Session: {self.currentStrategy.getDescription()} halted.")
-
+            result = self.currentStrategy.execute()
+            if result:
+                print(f"Strategy '{self.currentStrategy.getDescription()}': Ended with success.")
+            else:
+                print(f"Strategy '{self.currentStrategy.getDescription()}': Ended with failure.")
 
     def displayStrategies(self):
         for index, strategy in self.strategies.items():
@@ -28,7 +28,7 @@ class CLI:
                 return False
             if mode not in [key for key in self.strategies.keys()]:
                 print('Invalid mode. Please try again.')
-                continue
-            self.currentStrategy = self.strategies[mode]
-            return True
+            else:
+                self.currentStrategy = self.strategies[mode]
+                return True
 

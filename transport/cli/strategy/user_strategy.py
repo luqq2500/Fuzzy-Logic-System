@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Union
-
+from transport.cli.components.get_existing_variable_name_cli import GetExistingVariableNameCLI
 from transport.cli.components.add_membership_cli import AddMembershipCLI
 from transport.cli.components.create_variable_cli import CreateVariableCLI
 from transport.cli.components.get_variable_cli import GetVariableInfoCLI
@@ -41,15 +40,23 @@ class UserCreateVariableCLI(IUserStrategyCLI):
         return True
 
 class UserPutVariableNameAddMembershipCLI(IUserStrategyCLI):
-    def __init__(self, get_var_cli:GetVariableInfoCLI,add_membership_cli:AddMembershipCLI):
+    def __init__(self, get_exist_var_name_cli: GetExistingVariableNameCLI, get_var_cli:GetVariableInfoCLI,add_membership_cli:AddMembershipCLI):
+        self.get_exist_var_name_cli = get_exist_var_name_cli
         self.get_var_cli = get_var_cli
         self.add_membership_cli = add_membership_cli
-        self.desc = "Add membership to existing variables."
-        self.zero_mem_vars:dict[str,list[Union[str,list[float]]]] = {}
+        self.desc = "Add/update membership to existing variables."
+        self.existingVariableName = []
     def execute(self):
-        res = self.get_var_cli.execute()
-        self.add_membership_cli.execute(res.name, res.mf)
-        return True
+        res_existing_var_name = self.get_exist_var_name_cli.execute()
+        if res_existing_var_name:
+            self.existingVariableName = res_existing_var_name
+            self.get_var_cli.setElementToValidate(self.existingVariableName)
+            res = self.get_var_cli.execute()
+            self.add_membership_cli.execute(res.name, res.mf)
+            return True
+        else:
+            print(f'Not able to add/update membership.')
+            return False
     def getDescription(self):
         return self.desc
 

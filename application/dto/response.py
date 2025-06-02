@@ -35,3 +35,8 @@ class GetVariableInfoByNameResponse:
     mf:str
     fuzzy_var:object
 
+@dataclass
+class GetExistingVariableNameResponse:
+    existing_variable_name:list[str]
+
+

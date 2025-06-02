@@ -3,9 +3,11 @@ from application.interactor.add_membership import AddMembership
 from application.interactor.create_rule import CreateRule
 from application.interactor.create_variable import CreateVariable
 from application.interactor.format_existing_antecedent import FormatExistingAntecedent
+from application.interactor.get_existing_variable_name import GetExistingVariableName
 from application.interactor.get_variable_info_by_name import GetVariableInfoByName
 from transport.cli.dto.request import CreateVariableRequest, AddMembershipRequest, CreateRuleRequest, GetVariableInfoByNameRequest
-from application.port.application_port import ICreateVariablePort, IAddMembershipPort, ICreateRulePort, IFormatExistingAntecedentPort, IGetVariableInfoByName
+from application.port.application_port import ICreateVariablePort, IAddMembershipPort, ICreateRulePort, \
+    IFormatExistingAntecedentPort, IGetVariableInfoByName, IGetExistingVariableName
 
 
 class CreateVariableCLIAdapter(ICreateVariablePort):
@@ -45,4 +47,11 @@ class GetVariableInfoByNameCLIAdapter(IGetVariableInfoByName):
     def execute(self, name):
         req = GetVariableInfoByNameRequest(name=name)
         res = self.interactor.execute(req)
+        return res
+
+class GetExistingVariableNameCLIAdapter(IGetExistingVariableName):
+    def __init__(self, interactor: GetExistingVariableName):
+        self.interactor = interactor
+    def execute(self):
+        res = self.interactor.execute()
         return res

@@ -45,7 +45,7 @@ class AddMembershipCLI:
             raise ValueError(f'Universe is invalid.')
 
     @abstractmethod
-    def parseUniverseStringReturnListFloat(self, universe:str):
+    def parseUniverseStringReturnListFloat(self, universe):
         return [float(value.strip()) for value in universe.split(',')]
 
 

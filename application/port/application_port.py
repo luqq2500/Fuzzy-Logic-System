@@ -25,3 +25,7 @@ class IGetVariableInfoByName(ABC):
 class IGetAllZeroMembershipVariable(ABC):
     @abstractmethod
     def execute(self):...
+
+class IGetExistingVariableName(ABC):
+    @abstractmethod
+    def execute(self):...
