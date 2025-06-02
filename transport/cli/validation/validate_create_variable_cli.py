@@ -1,4 +1,6 @@
 def isNameValid(name):
+    if len(name) <= 3:
+        raise ValueError('Name must be at least 3 characters long.')
     for char in name:
         if char.isdigit():
             raise ValueError("Name cannot have digits.")

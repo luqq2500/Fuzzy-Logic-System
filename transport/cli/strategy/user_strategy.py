@@ -20,7 +20,9 @@ class UserCreateVariableCLI(IUserStrategyCLI):
             print('User exited the mode.')
             return False
         for i in range(self.level):
-            self.create_var_cli.execute()
+            if self.create_var_cli.execute() is False:
+                print('Variable creation canceled.')
+                return False
         return True
     def getDescription(self):
         return self.desc

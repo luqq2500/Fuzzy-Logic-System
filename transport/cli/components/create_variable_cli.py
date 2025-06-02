@@ -10,14 +10,22 @@ class CreateVariableCLI:
     def execute(self):
         name:str = self.getVariableName()
         if not name:
+            print('User exits enter variable name.')
             return False
         var_type:str = self.getVariableType()
         if not var_type:
+            print('User exits enter variable type.')
             return False
         universe:list[float] = self.getUniverse()
+        if not universe:
+            print('User exits enter universe.')
+            return False
         mf:str = self.getMembershipFunction()
+        if not mf:
+            print('User exits enter membership function.')
+            return False
         res = self.adapter.execute(name, var_type, universe, mf)
-        print(f'Variable created: {res.name},{res.type},{res.mf},{res.universe},{res.fuzzy_var}')
+        print(f'Variable {res.name}: {res.type},{res.universe},{res.mf} successfully created.')
         return res
 
     @abstractmethod
@@ -45,23 +53,37 @@ class CreateVariableCLI:
                 print(f'Error: {e} Please try again.')
 
     def getUniverse(self):
-        universe_string = input("Enter your universe (start, end, step): ")
-        universe = self.parseStringUniverseReturnListFloat(universe_string)
-        if not isVariableUniverseValid(universe):
-            raise ValueError(f"Variable universe: {universe} is invalid. Please try again.")
-        return universe
+        while True:
+            universe_string = input("Enter your universe [start, end, step] (q to quit): ")
+            if universe_string == 'q':
+                return False
+            try:
+                universe = self.parseStringUniverseReturnListFloat(universe_string)
+                isVariableUniverseValid(universe)
+                return universe
+            except ValueError as e:
+                print(f'Error: {e} Please try again.')
 
     @staticmethod
     def getMembershipFunction():
-        mf = input("Enter membership function type: ")
-        if isMfValid(mf):
-            return mf
-        else:
-            raise ValueError(f'Membership function type is invalid.')
+        while True:
+            mf = input("Enter membership function type (q to quit): ")
+            if mf == 'q':
+                return False
+            try:
+                isMfValid(mf)
+                return mf
+            except ValueError as e:
+                print(f'Error: {e} Please try again.')
 
     @staticmethod
-    def parseStringUniverseReturnListFloat(universe):
+    def parseStringUniverseReturnListFloat(string_universe:str)->list[float]:
+        if not isinstance(string_universe,str) or not string_universe.strip():
+            raise ValueError(f'Variable universe cannot be empty')
         try:
-            return [float(value.strip()) for value in universe.split(',')]
+            elements = string_universe.split(',')
+            if len(elements) != 3:
+                raise ValueError
+            return [float(value.strip()) for value in string_universe.split(',')]
         except ValueError:
-            raise ValueError(f"Universe {universe} must separated by commas.")
+            raise ValueError(f"Universe {string_universe} must be three numbers separated by commas (eg: 0,101,1).")
