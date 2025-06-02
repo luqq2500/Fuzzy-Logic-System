@@ -3,7 +3,7 @@ from transport.cli.strategy.get_variable_info_strategy import IGetVariableInfoSt
 class GetVariableInfoCLI:
     def __init__(self, strategy:IGetVariableInfoStrategy):
         self.strategy = strategy
-        self.elementToValidate = set()
+        self.elementToValidate:list = []
     def execute(self):
         self.strategy.setup()
         print(self.strategy.getTitle())
@@ -23,5 +23,6 @@ class GetVariableInfoCLI:
                 return finder
             else:
                 print(f'Cannot retrieve {finder}. Please try again.')
-    def setElementToValidate(self, elementToValidate:set):
+    def setElementToValidate(self, elementToValidate:list):
+        self.elementToValidate.clear()
         self.elementToValidate = elementToValidate

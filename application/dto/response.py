@@ -37,6 +37,6 @@ class GetVariableInfoByNameResponse:
 
 @dataclass
 class GetExistingVariableNameResponse:
-    existing_variable_name:set
+    existing_variable_name:list
 
 
