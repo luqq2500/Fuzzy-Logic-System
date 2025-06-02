@@ -1,14 +1,16 @@
 def isNameValid(name):
     for char in name:
         if char.isdigit():
-            return False
-    if not name or name == " " or name is None:
-        return False
+            raise ValueError("Name cannot have digits.")
+    if not name or name is None:
+        raise ValueError("Name cannot be empty.")
+    if name == " ":
+        raise ValueError("Name cannot be whitespace.")
     return True
 
 def isVariableTypeValid(variable_type):
     if variable_type not in ['antecedent', 'consequent']:
-        return False
+        raise ValueError("Variable type must be 'antecedent' or 'consequent'.")
     return True
 
 def isVariableUniverseValid(variable_universe):

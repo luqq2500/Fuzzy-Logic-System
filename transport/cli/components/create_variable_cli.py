@@ -9,7 +9,11 @@ class CreateVariableCLI:
 
     def execute(self):
         name:str = self.getVariableName()
+        if not name:
+            return False
         var_type:str = self.getVariableType()
+        if not var_type:
+            return False
         universe:list[float] = self.getUniverse()
         mf:str = self.getMembershipFunction()
         res = self.adapter.execute(name, var_type, universe, mf)
@@ -18,17 +22,27 @@ class CreateVariableCLI:
 
     @abstractmethod
     def getVariableName(self):
-        name = input("Enter variable name: ").lower()
-        if not isNameValid(name):
-            raise ValueError(f"Name: {name} is invalid. Please try again. ")
-        return name
+        while True:
+            name = input("Enter variable name (q to quit): ").lower()
+            if name == 'q':
+                return False
+            try:
+                isNameValid(name)
+                return name
+            except ValueError as e:
+                print(f'Error: {e} Please try again.')
 
     @abstractmethod
     def getVariableType(self):
-        variable_type = input("Enter your variable type: ").lower()
-        if not isVariableTypeValid(variable_type):
-            raise ValueError(f"Variable type: {variable_type} is invalid. Please try again.")
-        return variable_type
+        while True:
+            variable_type = input("Enter your variable type (q to quit): ").lower()
+            if variable_type == 'q':
+                return False
+            try:
+                isVariableTypeValid(variable_type)
+                return variable_type
+            except ValueError as e:
+                print(f'Error: {e} Please try again.')
 
     def getUniverse(self):
         universe_string = input("Enter your universe (start, end, step): ")
