@@ -13,7 +13,7 @@ class IUserStrategyCLI(ABC):
 class UserCreateVariableCLI(IUserStrategyCLI):
     def __init__(self, create_var_cli:CreateVariableCLI):
         self.create_var_cli = create_var_cli
-        self.desc = "Create variable only."
+        self.desc = "Create variable only"
         self.level = 0
     def execute(self):
         if not self.getNumberOfVariablesToCreate():
@@ -28,25 +28,25 @@ class UserCreateVariableCLI(IUserStrategyCLI):
         return self.desc
     def getNumberOfVariablesToCreate(self):
         while True:
-            level = input("How many variables do you want to create? (q to quit): ")
+            level = input("How many variables do you want to create? (q to quit): ").strip()
             if level.lower() == 'q':
                 print(f"Quitting mode: {self.desc}")
                 return False
-            if not int(level):
-                print("Input must be an integer. Try again.")
-            if int(level) < 0:
-                print("Input must be greater than 0. Try again.")
-            if int(level) > 0:
-                break
-        self.level = int(level)
-        return True
+            try:
+                int_level = int(level)
+                if int_level <= 0:
+                    raise ValueError(f'Level must be digit that is greater than 0.')
+                self.level = int_level
+                return True
+            except ValueError as e:
+                print(f'Error: {e}')
 
 class UserPutVariableNameAddMembershipCLI(IUserStrategyCLI):
     def __init__(self, get_exist_var_name_cli: GetExistingVariableNameCLI, get_var_cli:GetVariableInfoCLI,add_membership_cli:AddMembershipCLI):
         self.get_exist_var_name_cli = get_exist_var_name_cli
         self.get_var_cli = get_var_cli
         self.add_membership_cli = add_membership_cli
-        self.desc = "Add/update membership to existing variables."
+        self.desc = "Add/update membership to existing variables"
     def execute(self):
         res_existing_var_name = self.get_exist_var_name_cli.execute()
         if not res_existing_var_name:

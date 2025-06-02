@@ -6,7 +6,6 @@ from transport.cli.validation.validate_create_variable_cli import isNameValid, i
 class CreateVariableCLI:
     def __init__(self, adapter:CreateVariableCLIAdapter):
         self.adapter = adapter
-
     def execute(self):
         name:str = self.getVariableName()
         if not name:

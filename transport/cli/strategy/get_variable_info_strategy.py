@@ -21,7 +21,7 @@ class GetVariableInfoByNameStrategy(IGetVariableInfoStrategy):
         self.input_holder = None
     def setup(self):
         self.title = 'Mode: Retrieve variable by name.'
-        self.input_holder = 'Enter variable name for retrieval: '
+        self.input_holder = 'Enter variable name for retrieval'
     def get(self,name:str) -> GetVariableInfoByNameResponse:
         response = self.adapter.execute(name)
         return response
