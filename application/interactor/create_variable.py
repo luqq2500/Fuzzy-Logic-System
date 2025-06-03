@@ -1,5 +1,8 @@
 from application.dto.response import CreateVariableResponse
 from domain.variable import Variable
+from infra.engine.fuzzy_engine_interface import IFuzzyEnginePort
+from infra.repository.repo_port import IVariableRepositoryPort
+from transport.cli.dto.request import CreateVariableRequest
 
 
 # This is 'create variable' business application code.
@@ -12,11 +15,11 @@ from domain.variable import Variable
 
 
 class CreateVariable:
-    def __init__(self, engine, repo):
+    def __init__(self, engine:IFuzzyEnginePort, repo:IVariableRepositoryPort):
         self.engine = engine
         self.repo = repo
 
-    def execute(self, req)->CreateVariableResponse:
+    def execute(self, req:CreateVariableRequest)->CreateVariableResponse:
         variable = Variable(req.name, req.var_type, req.universe, req.mf)
         name = variable.getName()
         var_type = variable.getType()

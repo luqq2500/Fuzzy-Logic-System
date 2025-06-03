@@ -1,4 +1,8 @@
 from application.dto.response import AddMembershipResponse
+from infra.engine.fuzzy_engine_interface import IFuzzyEnginePort
+from infra.repository.repo_port import IVariableRepositoryPort
+from transport.cli.dto.request import AddMembershipRequest
+
 
 # This is 'add membership' business application code.
 # Information required: variable name, membership function, list of ordinals, list of universes.
@@ -11,10 +15,10 @@ from application.dto.response import AddMembershipResponse
 # 8. Update variable object via variable repo.
 
 class AddMembership:
-    def __init__(self, engine, repo):
+    def __init__(self, engine:IFuzzyEnginePort, repo:IVariableRepositoryPort):
         self.engine = engine
         self.repo = repo
-    def execute(self, req)->AddMembershipResponse:
+    def execute(self, req:AddMembershipRequest)->AddMembershipResponse:
         variable = self.repo.get(req.var_name)
         fuzzy_var_universe = variable.fuzzy_variable.universe
         mf = req.mf

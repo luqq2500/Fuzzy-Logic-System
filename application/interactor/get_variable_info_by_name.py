@@ -1,9 +1,11 @@
 from application.dto.response import GetVariableInfoByNameResponse
+from infra.repository.repo_port import IVariableRepositoryPort
+from transport.cli.dto.request import GetVariableInfoByNameRequest
 
 class GetVariableInfoByName:
-    def __init__(self, repo):
+    def __init__(self, repo:IVariableRepositoryPort):
         self.repo = repo
-    def execute(self, req)->GetVariableInfoByNameResponse:
+    def execute(self, req:GetVariableInfoByNameRequest)->GetVariableInfoByNameResponse:
         name = req.name
         variable = self.repo.get(name)
         if variable is None:

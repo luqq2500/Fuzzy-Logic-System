@@ -1,7 +1,9 @@
 from application.dto.response import FormatExistingAntecedentResponse
+from infra.repository.repo_port import IVariableRepositoryPort
+
 
 class FormatExistingAntecedent:
-    def __init__(self, repo):
+    def __init__(self, repo:IVariableRepositoryPort):
         self.repo = repo
         self.formatted_antecedent = {}
     def execute(self)->FormatExistingAntecedentResponse:

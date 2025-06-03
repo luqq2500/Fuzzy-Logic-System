@@ -1,5 +1,8 @@
 from application.dto.response import CreateRuleResponse
 from domain.rule import Rule
+from infra.engine.fuzzy_engine_interface import IFuzzyEnginePort
+from infra.repository.repo_port import IVariableRepositoryPort
+from transport.cli.dto.request import CreateRuleRequest
 
 
 # This is 'create rule' business application code.
@@ -13,11 +16,11 @@ from domain.rule import Rule
 
 
 class CreateRule:
-    def __init__(self, engine, repo):
+    def __init__(self, engine:IFuzzyEnginePort, repo):
         self.engine = engine
         self.repo = repo
 
-    def execute(self, req):
+    def execute(self, req:CreateRuleRequest):
         rule_base = Rule(req.name)
         antecedent = req.var_logic_seq[-1]
         for i in range(len(req.var_logic_seq)-2,-1,-2):
@@ -28,5 +31,4 @@ class CreateRule:
         rule_base.fuzzy_rule = fuzzy_rule
         rule_term_label = {term.term.label:term.label for term in rule_base.fuzzy_rule.Antecedent.term_set}
         rule_base.var_term_label = rule_term_label
-        self.repo.save(rule_base)
-        return CreateRuleResponse(rule_base)
+        self.repo.add(rule_base)
