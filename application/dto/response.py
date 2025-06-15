@@ -1,8 +1,4 @@
 from dataclasses import dataclass
-from typing import Union
-
-from domain.variable import Variable
-
 
 @dataclass
 class CreateVariableResponse:

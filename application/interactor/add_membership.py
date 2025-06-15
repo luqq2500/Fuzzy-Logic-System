@@ -1,6 +1,6 @@
 from application.dto.response import AddMembershipResponse
 from infra.engine.fuzzy_engine_interface import IFuzzyEnginePort
-from infra.repository.repo_port import IVariableRepositoryPort
+from infra.repository.repo_port import IRepository
 from transport.cli.dto.request import AddMembershipRequest
 
 
@@ -15,7 +15,7 @@ from transport.cli.dto.request import AddMembershipRequest
 # 8. Update variable object via variable repo.
 
 class AddMembership:
-    def __init__(self, engine:IFuzzyEnginePort, repo:IVariableRepositoryPort):
+    def __init__(self, engine:IFuzzyEnginePort, repo:IRepository):
         self.engine = engine
         self.repo = repo
     def execute(self, req:AddMembershipRequest)->AddMembershipResponse:

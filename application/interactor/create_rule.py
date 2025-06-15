@@ -1,7 +1,7 @@
 from application.dto.response import CreateRuleResponse
 from domain.rule import Rule
 from infra.engine.fuzzy_engine_interface import IFuzzyEnginePort
-from infra.repository.repo_port import IVariableRepositoryPort
+from infra.repository.repo_port import IRepository
 from transport.cli.dto.request import CreateRuleRequest
 
 

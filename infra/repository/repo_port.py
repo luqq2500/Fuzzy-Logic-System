@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class IVariableRepositoryPort(ABC):
+class IRepository(ABC):
     @abstractmethod
     def add(self, variable):...
     @abstractmethod

@@ -1,9 +1,9 @@
 from application.dto.response import CreateVariableResponse
 from domain.variable import Variable
 from infra.engine.fuzzy_engine_interface import IFuzzyEnginePort
-from infra.repository.repo_port import IVariableRepositoryPort
+from infra.repository.repo_port import IRepository
 from transport.cli.dto.request import CreateVariableRequest
-
+import numpy as np
 
 # This is 'create variable' business application code.
 # Information required: name, variable type, and universe.
@@ -15,12 +15,13 @@ from transport.cli.dto.request import CreateVariableRequest
 
 
 class CreateVariable:
-    def __init__(self, engine:IFuzzyEnginePort, repo:IVariableRepositoryPort):
+    def __init__(self, engine:IFuzzyEnginePort, repo:IRepository):
         self.engine = engine
         self.repo = repo
 
     def execute(self, req:CreateVariableRequest)->CreateVariableResponse:
-        variable = Variable(req.name, req.var_type, req.universe, req.mf)
+        parsed_universe = np.arange(req.universe[0], req.universe[1], req.universe[2]).tolist()
+        variable = Variable(req.name, req.var_type, parsed_universe, req.mf)
         name = variable.getName()
         var_type = variable.getType()
         universe = variable.getUniverse()
